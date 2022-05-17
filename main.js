@@ -74,10 +74,7 @@ var app = http.createServer(function(request,response){
               <textarea name="description" placeholder="description"></textarea>
             </p>
             <p>
-              <select name = "author">
-                <option value = "1">egoing</option>
-                <option value = "1">duru</option>
-              </select>
+              ${template.authorSelect(authors)}
             </p>
             <p>
               <input type="submit">
@@ -100,7 +97,7 @@ var app = http.createServer(function(request,response){
         db.query(`
           INSERT INTO topic (title, description, created, author_id) 
             VALUES(?, ?, NOW(), ?)`,
-          [post.title, post.description, 1], 
+          [post.title, post.description, post.author], 
           function(error, result){
             if(error){
               throw error;
